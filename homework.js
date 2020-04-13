@@ -1,5 +1,6 @@
 "use strict";
 
+// 1. Классы
 class User {
     constructor(userName, birthday) {
         this.userName = userName;
@@ -21,8 +22,28 @@ class User {
 
         return console.log(age);
     }
+
+    get name() {
+        return this.userName;
+    }
+}
+
+class Admin extends User {
+    constructor(...args) {
+        super(...args);
+    }
+
+    kill(obj) {
+        if (obj instanceof User && obj !== Admin) {
+            return console.log(`Пользователь ${super.name} убит`);
+        } else {
+            throw new TypeError("Необходимо передать обьект");
+        }
+    }
 }
 
 const birthday = new Date(2000, 5, 11);
 const john = new User("John Doe", birthday);
 john.age;
+const admin = new Admin();
+admin.kill(admin);
