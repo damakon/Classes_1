@@ -34,16 +34,20 @@ class Admin extends User {
     }
 
     kill(obj) {
-        if (obj instanceof User && obj !== Admin) {
-            return console.log(`Пользователь ${super.name} убит`);
-        } else {
+        if (obj instanceof User && !obj instanceof Admin) {
+            return console.log(`Пользователь ${obj.name} убит`);
+        } else if (obj instanceof Admin) {
+            throw new Error("Недостаточно прав");
+        } else
             throw new TypeError("Необходимо передать обьект");
-        }
     }
 }
+
 
 const birthday = new Date(2000, 5, 11);
 const john = new User("John Doe", birthday);
 john.age;
 const admin = new Admin();
 admin.kill(admin);
+admin.kill(5);
+admin.kill(john);
