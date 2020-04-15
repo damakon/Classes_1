@@ -23,14 +23,25 @@ const sum = arr => arr.reduce((acc, item) => acc + item, 0);
 
 Promise.all(promises)
     .then(sum)
-    // .then(console.log)
+    .then(console.log)
     .catch(console.error);  // на случай ошибки
 
 // б
+/*
+function workMyCollection(arr) {
+    return arr.reduce(function(promise, item) {
+        return promise.then(function(result) {
+            return doSomethingAsyncWithResult(item, result);
+        });
+    }, q());
+}
+* */
+
 promises.reduce((acc, promise) => {
     return acc
-        .then(() => Promise.resolve(0))
-        .then((result) => result + promise)
+        .then(() => {
+            return acc + promise;
+        })
         .then(console.log);
 });
 
