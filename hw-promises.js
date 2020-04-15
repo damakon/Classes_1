@@ -18,17 +18,29 @@ const promises = [
     Promise.resolve(9),
 ];
 
-//a
+// a
 const sum = arr => arr.reduce((acc, item) => acc + item, 0);
 
 Promise.all(promises)
     .then(sum)
-    .then(console.log)
+    // .then(console.log)
     .catch(console.error);  // на случай ошибки
 
-//б
+// б
 promises.reduce((acc, promise) => {
-    return acc + promise
-        .then(() => promise)
-        .then(console.log)
-}, Promise.resolve());
+    return acc
+        .then(() => Promise.resolve(0))
+        .then((result) => result + promise)
+        .then(console.log);
+});
+
+// в
+let index = 0;
+let rezult = 0;
+(async function () {
+    while (index < promises.length) {
+        rezult += await promises[index];
+        index++;
+    }
+    return console.log(rezult);
+})();
