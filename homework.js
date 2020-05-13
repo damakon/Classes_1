@@ -43,7 +43,6 @@ class Admin extends User {
     }
 }
 
-
 const birthday = new Date(2000, 5, 11);
 const john = new User("John Doe", birthday);
 john.age;
