@@ -27,23 +27,12 @@ Promise.all(promises)
     .catch(console.error);  // на случай ошибки
 
 // б
-/*
-function workMyCollection(arr) {
-    return arr.reduce(function(promise, item) {
-        return promise.then(function(result) {
-            return doSomethingAsyncWithResult(item, result);
-        });
-    }, q());
-}
-* */
-
 promises.reduce((acc, promise) => {
     return acc
-        .then(() => {
-            return acc + promise;
-        })
+        .then(() => promise)
+        .then(() => acc + promise)
         .then(console.log);
-});
+}, Promise.resolve(0));
 
 // в
 let index = 0;
